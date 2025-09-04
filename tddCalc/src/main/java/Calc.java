@@ -42,8 +42,13 @@ public class Calc {
 
     private static int parseNumber(){
         skipSpaces();
-        if(idx >= ParseRest.length() || !Character.isDigit(ParseRest.charAt(idx))){
+        if(idx >= ParseRest.length()){
             throw new IllegalArgumentException("Invalid number");
+        }
+        else if(!Character.isDigit(ParseRest.charAt(idx))){
+            if(match('-')) return -parseNumber();
+            else
+                throw new IllegalArgumentException("Invalid number");
         }
         int num = 0;
         while(idx < ParseRest.length() && Character.isDigit(ParseRest.charAt(idx))){
