@@ -8,24 +8,36 @@ public class Calc {
     public static int run(String args) {
         ParseRest = args;
         idx = 0;
-        int val = parseExpr();
-        skipSpaces();
-        return val;
+        return parseExpr();
     }
 
     private static int parseExpr(){
-        int val = parseNumber();
+        int Eval = parseTerm();
         while(true){
             skipSpaces();
             if (match('+')) {
-                val += parseNumber();
+                Eval += parseTerm();
             }
             else if (match('-')) {
-                val -= parseNumber();
+                Eval -= parseTerm();
             }
             else break;
         }
-        return val;
+        return Eval;
+    }
+
+    private static int parseTerm(){
+        int Tval = parseNumber();
+        while(true){
+            skipSpaces();
+            if(match('*')){
+                Tval *= parseNumber();
+            } else if(match('/')){
+                Tval /= parseNumber();
+            }
+            else break;
+        }
+        return Tval;
     }
 
     private static int parseNumber(){
